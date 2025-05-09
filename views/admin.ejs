@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerenciar Turmas</title>
+  <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gerenciar Turmas</h1>
+
+    <!-- Formulário de upload -->
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+      <label>Turma:
+        <select id="groupSelect">
+          <option value="A">A</option>
+          <option value="B">B</option>
+        </select>
+      </label>
+      <br>
+      <input type="file" id="fileInput" name="file" accept=".html" required />
+      <br>
+      <button type="submit">Enviar</button>
+    </form>
+
+    <hr>
+
+    <!-- Listagem de arquivos da Turma A -->
+    <h2>Turma A</h2>
+    <ul id="listA" class="file-list"></ul>
+
+    <!-- Listagem de arquivos da Turma B -->
+    <h2>Turma B</h2>
+    <ul id="listB" class="file-list"></ul>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const group = document.getElementById('groupSelect').value;
+      const fileEl = document.getElementById('fileInput');
+      if (!fileEl.files.length) return alert('Selecione um arquivo');
+      const filename = fileEl.files[0].name;
+      form.action = `/admin/professora/${group}/${filename}`;
+      form.submit();
+    });
+
+    // Função para buscar arquivos da Turma
+    function fetchFiles(group, listId) {
+      fetch(`/${group}`)
+        .then(response => response.text())
+        .then(html => {
+          const matches = [...html.matchAll(/<a href="\/(\w+)\/(.*?)">/g)];
+          const list = document.getElementById(listId);
+          list.innerHTML = '';
+          matches.forEach(match => {
+            const fileName = match[2];
+            const li = document.createElement('li');
+            li.innerHTML = `
+              <span>${fileName}.html</span>
+              <button onclick="deleteFile('${group}', '${fileName}.html')">🗑️ Deletar</button>
+            `;
+            list.appendChild(li);
+          });
+        });
+    }
+
+    // Função para deletar arquivo
+    function deleteFile(group, filename) {
+      if (!confirm(`Tem certeza que deseja apagar ${filename} da Turma ${group}?`)) return;
+      fetch(`${group}/${filename}`, { method: 'DELETE' })
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg);
+          fetchFiles('A', 'listA');
+          fetchFiles('B', 'listB');
+        })
+        .catch(err => alert('Erro ao deletar arquivo.'));
+    }
+
+    // Carregar listas ao iniciar
+    fetchFiles('A', 'listA');
+    fetchFiles('B', 'listB');
+  </script>
+</body>
+</html>

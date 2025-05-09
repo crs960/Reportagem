@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Grupo <%= group %></title>
+  <link rel="stylesheet" href="/group.css">
+</head>
+<body>
+    <h1>Reportagens da turma <%= group %></h1>
+    
+    <div class="container">
+      <% links.forEach(l => { %>
+        <a href="<%= l.url %>">
+          <div class="reportagens"><p><%= l.name %></p></div>
+        </a>
+      <% }) %>
+    </div>
+
+<p>
+  <a href="/">
+    <button>
+      <p>Página inicial</p>
+    </button>
+  </a>
+</p>
+
+</body>
+</html>
