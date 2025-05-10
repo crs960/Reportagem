@@ -2,27 +2,27 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Grupo <%= group %></title>
+  <title>Turma <%= group %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/group.css">
 </head>
 <body>
-    <h1>Reportagens da turma <%= group %></h1>
+  <div class="container">
+    <h1>Turma <%= group %></h1>
     
-    <div class="container">
+    <div class="cards">
       <% links.forEach(l => { %>
-        <a href="<%= l.url %>">
-          <div class="reportagens"><p><%= l.name %></p></div>
+        <a href="<%= l.url%>">
+          <div class="card">
+            <p><%= l.name %></p>
+        </div>
         </a>
       <% }) %>
     </div>
 
-<p>
-  <a href="/">
-    <button>
-      <p>Página inicial</p>
-    </button>
-  </a>
-</p>
-
+    <div class="voltar">
+      <a href="/" class="btn-voltar">Página Inicial</a>
+    </div>
+  </div>
 </body>
 </html>

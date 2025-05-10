@@ -5,7 +5,14 @@ const session = require('express-session');
 const admin = require("./admin");
 
 const app = express();
-const PORT = process.env.PORT;
+
+let PORT;
+
+if(process.env.PORT){
+  PORT = process.env.PORT;
+}else{
+  PORT = 8080;
+}
 
 app.use(session({
   secret: 'segredo-super-seguro',
@@ -53,7 +60,7 @@ app.get('/:group/:page', (req, res) => {
   const filePath = path.join(docsDir, group, page + '.html');
   fs.readFile(filePath, 'utf8', (err, content) => {
     if (err) return res.status(404).send('Página não encontrada');
-    res.render('wrapper', { content });
+    res.render('wrapper', { content, group });
   });
 });
 

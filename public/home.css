@@ -1,43 +1,80 @@
-body{
-    background-color: rgb(124, 124, 124);
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1{
-    text-align: center;
-    color: white;
-    margin-top: 10vh;
-    font-size: 80px;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #e1bee7);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-a {
-    text-decoration: none;
+.container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
 }
 
-.botoes{
-    display: flex;
-    gap: 5vw;
-    justify-content: center;
-    margin-top: 10vh;
+h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #333;
 }
 
-.botao{
-    width: 20vh;
-    max-width: 30vw;
-    height: 40vh;
-    border-radius: 2vh;
-    color: white;
-    font-size: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 10px solid black;
-    box-shadow: 10px 20px 50px black;
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn {
+  color: white;
+  padding: 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5vh;
 }
 
 .A{
-    background-color: #49dd41;
+   background-color: #0027ea;
+}
+
+.A:hover {
+  background-color: #3700b3;
 }
 
 .B{
-    background-color: #41c9dd;
+   background-color: #00ea1f;
+}
+
+.B:hover {
+  background-color: #00b300;
+}
+
+/* Responsivo */
+@media (min-width: 480px) {
+  .buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .btn {
+    flex: 1;
+    max-width: 150px;
+  }
 }
